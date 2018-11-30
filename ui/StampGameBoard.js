@@ -59,6 +59,8 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                     _this.ansPoint2 = { x: 0, y: 0 };
                     _this.chooseStampType = 1;
                     _this.touches = [];
+                    _this.centerPointArr = [{ x: 0, y: 0 }, { x: 0, y: 0 }];
+                    _this.angle = 0;
                     _this.userAnsArr = [];
                     _this.onDragStart = function (e) {
                         var eventData = e.data;
@@ -191,13 +193,11 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                         if (_this.chooseStampType === 1) {
                             _this.centerPointArr[0].x = (x + _x) / 2;
                             _this.centerPointArr[0].y = (y + _y) / 2;
-                            _this.centerPointArr[0].type = _this.chooseStampType;
                             _this.centerCircle.drawCircle(_this.centerPointArr[0].x, _this.centerPointArr[0].y, 10);
                         }
                         else {
                             _this.centerPointArr[1].x = (x + _x) / 2;
                             _this.centerPointArr[1].y = (y + _y) / 2;
-                            _this.centerPointArr[1].type = _this.chooseStampType;
                             _this.centerCircle.drawCircle(_this.centerPointArr[1].x, _this.centerPointArr[1].y, 10);
                         }
                         _this.centerCircle.endFill();
@@ -229,7 +229,7 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                         else if (param.indexOf('level=3') > -1) {
                             levelNumber = 3;
                         }
-                        else if (param.indexOf('level=3') > -1) {
+                        else if (param.indexOf('level=1') > -1) {
                             levelNumber = 1;
                         }
                         else {
@@ -279,6 +279,7 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                             _this.stampIcon1.pivot.y = _this.stampIcon1.height / 2;
                             _this.stampIcon1.width = stampWidth;
                             _this.stampIcon1.height = stampWidth;
+                            _this.stampIcon1.rotation = _this.angle * (Math.PI / 180);
                             _this.stampIcon1.x = point.x;
                             _this.stampIcon1.y = point.y;
                             _this.addChild(_this.stampIcon1);
@@ -289,6 +290,7 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                             _this.stampIcon2.pivot.y = _this.stampIcon2.height / 2;
                             _this.stampIcon2.width = stampWidth;
                             _this.stampIcon2.height = stampWidth;
+                            _this.stampIcon2.rotation = _this.angle * (Math.PI / 180);
                             _this.stampIcon2.x = point.x;
                             _this.stampIcon2.y = point.y;
                             _this.addChild(_this.stampIcon2);
@@ -301,7 +303,6 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                                 _this.userAnsArr[1] = point;
                             }
                         }
-                        console.log('this.userAnsArr: ', _this.userAnsArr);
                         centerCircle.drawCircle(point.x, point.y, 10);
                         _this.addChild(centerCircle);
                     };
@@ -501,6 +502,7 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                 StampGameBoard.prototype.checkAns = function () {
                     var isAnsCorrect;
                     if (!this.isPCMode) {
+                        console.log('this.centerPointArr: ', this.centerPointArr);
                         isAnsCorrect = this.validateAns(this.centerPointArr);
                     }
                     else {
