@@ -30,7 +30,7 @@ System.register(["./ButtonBase"], function (exports_1, context_1) {
                     return _this;
                 }
                 FBBtn.prototype.trigger = function () {
-                    window.open("https://www.facebook.com/sharer/sharer.php?u=" + this._location.url, 'Budda Lee');
+                    window.open("https://www.facebook.com/sharer/sharer.php?u=" + this._location.href, 'Budda Lee');
                 };
                 return FBBtn;
             }(ButtonBase_1.ButtonBase));
