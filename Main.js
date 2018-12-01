@@ -1,6 +1,6 @@
-System.register(["./core/Event", "./core/Loader", "./core/SoundMgr", "./ui/GameScene", "./ui/MainMenuScene", "./ui/PaintingInfoScene", "./core/Stamps"], function (exports_1, context_1) {
+System.register(["./core/Event", "./core/Loader", "./core/SoundMgr", "./ui/GameScene", "./ui/MainMenuScene", "./ui/PaintingInfoScene", "./core/Stamps", "./ui/IntroductionScene"], function (exports_1, context_1) {
     "use strict";
-    var EventEmitter, Event_1, Loader_1, SoundMgr_1, GameScene_1, MainMenuScene_1, Event_2, PaintingInfoScene_1, Stamps_1, eventEmitter, application, canvasWidth, canvasHeight, canvasScale, stamps, Main;
+    var EventEmitter, Event_1, Loader_1, SoundMgr_1, GameScene_1, MainMenuScene_1, Event_2, PaintingInfoScene_1, Stamps_1, IntroductionScene_1, eventEmitter, application, canvasWidth, canvasHeight, canvasScale, stamps, Main;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -25,6 +25,9 @@ System.register(["./core/Event", "./core/Loader", "./core/SoundMgr", "./ui/GameS
             },
             function (Stamps_1_1) {
                 Stamps_1 = Stamps_1_1;
+            },
+            function (IntroductionScene_1_1) {
+                IntroductionScene_1 = IntroductionScene_1_1;
             }
         ],
         execute: function () {
@@ -42,6 +45,10 @@ System.register(["./core/Event", "./core/Loader", "./core/SoundMgr", "./ui/GameS
                     eventEmitter.on(Event_1.CoreEvent.AssetsLoadComplete, function () {
                         jQuery("#loadingPage").hide();
                         MainMenuScene_1.MainMenuScene.draw();
+                        eventEmitter.on(Event_2.GameFlowEvent.RenderIntroductionSceneRequest, function () {
+                            application.stage.removeChildren();
+                            IntroductionScene_1.IntroductionScene.draw();
+                        });
                         eventEmitter.on(Event_2.GameFlowEvent.RenderGameScene, function () {
                             application.stage.removeChildren();
                             GameScene_1.GameScene.draw();

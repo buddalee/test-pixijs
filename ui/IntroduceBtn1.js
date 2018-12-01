@@ -13,7 +13,7 @@ System.register(["./ButtonBase", "../Main", "../core/Event"], function (exports_
             d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
         };
     })();
-    var ButtonBase_1, Main_1, Event_1, IntroduceBtn;
+    var ButtonBase_1, Main_1, Event_1, IntroduceBtn1;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -28,17 +28,17 @@ System.register(["./ButtonBase", "../Main", "../core/Event"], function (exports_
             }
         ],
         execute: function () {
-            IntroduceBtn = (function (_super) {
-                __extends(IntroduceBtn, _super);
-                function IntroduceBtn() {
-                    return _super.call(this, 'Introduce_Button', 'introduce_btn', 1130, 549) || this;
+            IntroduceBtn1 = (function (_super) {
+                __extends(IntroduceBtn1, _super);
+                function IntroduceBtn1() {
+                    return _super.call(this, 'StartGame_Button', 'start_game_btn', 760, 794) || this;
                 }
-                IntroduceBtn.prototype.trigger = function () {
-                    Main_1.eventEmitter.emit(Event_1.GameFlowEvent.RenderIntroductionSceneRequest);
+                IntroduceBtn1.prototype.trigger = function () {
+                    Main_1.eventEmitter.emit(Event_1.GameFlowEvent.RenderGameScene);
                 };
-                return IntroduceBtn;
+                return IntroduceBtn1;
             }(ButtonBase_1.ButtonBase));
-            exports_1("IntroduceBtn", IntroduceBtn);
+            exports_1("IntroduceBtn1", IntroduceBtn1);
         }
     };
 });
