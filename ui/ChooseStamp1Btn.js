@@ -56,6 +56,10 @@ System.register(["../Main", "../core/Event", "../core/Loader"], function (export
                     _this.addChild(mouseStamp);
                     _this.on("mouseup", _this.trigger.bind(_this));
                     _this.on("touchend", _this.trigger.bind(_this));
+                    Main_1.eventEmitter.on(Event_1.GameFlowEvent.chooseStamp1Request, function () {
+                        _this.isClicked = true;
+                        _this.gt.visible = true;
+                    });
                     Main_1.eventEmitter.on(Event_1.GameFlowEvent.chooseStamp2Request, function () {
                         _this.isClicked = false;
                         _this.gt.visible = false;

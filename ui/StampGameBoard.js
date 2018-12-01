@@ -127,10 +127,12 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                             console.log('this.tempDatas: ', _this.tempDatas);
                             if (_this.tempDatas.length <= 3) {
                                 _this.chooseStampType = 1;
+                                Main_1.eventEmitter.emit(Event_1.GameFlowEvent.chooseStamp1Request);
                                 _this.calcDistance(1);
                             }
                             else {
                                 _this.chooseStampType = 2;
+                                Main_1.eventEmitter.emit(Event_1.GameFlowEvent.chooseStamp2Request);
                                 _this.calcDistance(2);
                             }
                         }
