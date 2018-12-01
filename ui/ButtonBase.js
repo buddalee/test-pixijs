@@ -40,6 +40,12 @@ System.register(["../core/Loader"], function (exports_1, context_1) {
                     else if (textureID === 'next_level_btn') {
                         _this.texture = PIXI.Sprite.fromImage("assets/btn-normal-s.png").texture;
                     }
+                    else if (textureID === 'FB_share') {
+                        _this.texture = PIXI.Sprite.fromImage("assets/fb.png").texture;
+                    }
+                    else if (textureID === 'go_home') {
+                        _this.texture = PIXI.Sprite.fromImage("assets/icon-home-copy.png").texture;
+                    }
                     else {
                         console.log('Loader.resources[_id]: ', Loader_1.Loader.resources);
                         _this.texture = Loader_1.Loader.resources[_id].textures[textureID];

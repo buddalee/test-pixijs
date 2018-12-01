@@ -37,6 +37,7 @@ System.register([], function (exports_1, context_1) {
                 GameFlowEvent.NextLevelRequest = "NextLevelRequest";
                 GameFlowEvent.SeeAnsRequest = "SeeAnsRequest";
                 GameFlowEvent.ReloadGameRequest = "ReloadGameRequest";
+                GameFlowEvent.GotoHomeRequest = "GotoHomeRequest";
                 return GameFlowEvent;
             }());
             exports_1("GameFlowEvent", GameFlowEvent);

@@ -1,6 +1,6 @@
-System.register(["../core/Loader", "../Main", "../core/Stamps", "./FBBtn", "./PaintingTitle", "./ContinueBtn"], function (exports_1, context_1) {
+System.register(["../core/Loader", "../Main", "../core/Stamps", "./FBBtn", "./PaintingTitle", "./ContinueBtn", "./GoHomeBtn"], function (exports_1, context_1) {
     "use strict";
-    var Loader_1, Main_1, Stamps_1, FBBtn_1, PaintingTitle_1, ContinueBtn_1, PaintingInfoScene;
+    var Loader_1, Main_1, Stamps_1, FBBtn_1, PaintingTitle_1, ContinueBtn_1, GoHomeBtn_1, PaintingInfoScene;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -21,6 +21,9 @@ System.register(["../core/Loader", "../Main", "../core/Stamps", "./FBBtn", "./Pa
             },
             function (ContinueBtn_1_1) {
                 ContinueBtn_1 = ContinueBtn_1_1;
+            },
+            function (GoHomeBtn_1_1) {
+                GoHomeBtn_1 = GoHomeBtn_1_1;
             }
         ],
         execute: function () {
@@ -66,7 +69,7 @@ System.register(["../core/Loader", "../Main", "../core/Stamps", "./FBBtn", "./Pa
                     authorTitle.x = 1094;
                     authorTitle.y = 146;
                     Main_1.application.stage.addChild(authorTitle);
-                    var description = info.ArticleContext.replace(/&nbsp;/g, '');
+                    var description = info.ArticleContext.replace(/&nbsp;/g, '').replace(/\r/g, '');
                     console.log('author: ', author);
                     var descriptionText = new PIXI.Text(description, {
                         fontSize: 16,
@@ -89,9 +92,28 @@ System.register(["../core/Loader", "../Main", "../core/Stamps", "./FBBtn", "./Pa
                     descriptionTitle.x = 1094;
                     descriptionTitle.y = 218;
                     Main_1.application.stage.addChild(descriptionTitle);
+                    var stampText = new PIXI.Text('印記', {
+                        fontSize: 21,
+                        fontFamily: 'PingFangTC',
+                        fill: '#8b572a',
+                        align: 'center'
+                    });
+                    stampText.x = 1094;
+                    stampText.y = 753;
+                    Main_1.application.stage.addChild(stampText);
+                    var stampText1 = new PIXI.Text('乾、隆', {
+                        fontSize: 16,
+                        fontFamily: 'PingFangTC',
+                        fill: '#4a4a4a',
+                        align: 'center'
+                    });
+                    stampText1.x = 1094;
+                    stampText1.y = 785;
+                    Main_1.application.stage.addChild(stampText1);
                     Main_1.application.stage.addChild(new PaintingTitle_1.PaintingTitle());
                     Main_1.application.stage.addChild(new ContinueBtn_1.ContinueBtn());
                     Main_1.application.stage.addChild(new FBBtn_1.FBBtn());
+                    Main_1.application.stage.addChild(new GoHomeBtn_1.GoHomeBtn());
                 };
                 return PaintingInfoScene;
             }());

@@ -50,6 +50,10 @@ System.register(["./core/Event", "./core/Loader", "./core/SoundMgr", "./ui/GameS
                             application.stage.removeChildren();
                             PaintingInfoScene_1.PaintingInfoScene.draw();
                         });
+                        eventEmitter.on(Event_2.GameFlowEvent.GotoHomeRequest, function () {
+                            application.stage.removeChildren();
+                            MainMenuScene_1.MainMenuScene.draw();
+                        });
                         eventEmitter.on(Event_2.GameFlowEvent.NextLevelRequest, function () {
                             application.stage.removeChildren();
                             console.log('!!!!');
