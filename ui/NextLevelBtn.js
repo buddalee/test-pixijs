@@ -38,7 +38,7 @@ System.register(["./ButtonBase", "../Main", "../core/Event"], function (exports_
                         fill: '#fff',
                         align: 'center'
                     });
-                    checkAnsText.x = -41;
+                    checkAnsText.x = -32;
                     checkAnsText.y = -13;
                     _this.addChild(checkAnsText);
                     return _this;

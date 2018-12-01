@@ -41,6 +41,10 @@ System.register(["./ButtonBase", "../Main", "../core/Event"], function (exports_
                     checkAnsText.x = -41;
                     checkAnsText.y = -13;
                     _this.addChild(checkAnsText);
+                    _this.interactive = false;
+                    Main_1.eventEmitter.on(Event_1.GameFlowEvent.GameEndWithTimeout, function () {
+                        _this.interactive = true;
+                    });
                     return _this;
                 }
                 ReloadLevelBtn.prototype.trigger = function () {

@@ -47,9 +47,9 @@ System.register(["../core/Loader", "../Main", "./CheckAnsBtn", "./PaintingTitle"
                     Main_1.application.stage.addChild(new StampGameBoard_1.StampGameBoard());
                     Main_1.application.stage.addChild(new CheckAnsBtn_1.CheckAnsBtn());
                     var chooseStampHint = new PIXI.Text("請選擇印章總類", {
-                        fontSize: 15,
+                        fontSize: 21,
                         fontFamily: 'PingFangTC',
-                        fill: '#4a4a4a',
+                        fill: '#8b572a',
                         align: 'center'
                     });
                     chooseStampHint.x = 1094;

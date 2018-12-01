@@ -39,7 +39,7 @@ System.register(["../Main", "../core/Event", "../core/Loader"], function (export
                     _this.buttonMode = true;
                     _this.gt = new PIXI.Graphics();
                     _this.gt.beginFill(0xf5a623, 0.3);
-                    _this.gt.drawRect(1260, 175, 151, 85);
+                    _this.gt.drawRect(1260, 180, 151, 85);
                     _this.gt.endFill();
                     _this.addChild(_this.gt);
                     if (!_this.isClicked) {
@@ -50,13 +50,13 @@ System.register(["../Main", "../core/Event", "../core/Loader"], function (export
                     }
                     var stamp1 = PIXI.Sprite.from(Loader_1.Loader.resources["stamp2_icon"].texture);
                     stamp1.x = 1340;
-                    stamp1.y = 192;
+                    stamp1.y = 197;
                     stamp1.width = 50;
                     stamp1.height = 50;
                     _this.addChild(stamp1);
                     var mouseStamp = PIXI.Sprite.from(Loader_1.Loader.resources["mouse_stamp"].texture);
                     mouseStamp.x = 1278;
-                    mouseStamp.y = 192;
+                    mouseStamp.y = 197;
                     mouseStamp.width = 50;
                     mouseStamp.height = 50;
                     _this.addChild(mouseStamp);

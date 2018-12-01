@@ -40,7 +40,7 @@ System.register(["./ButtonBase", "../Main", "../core/Event"], function (exports_
                         fill: '#fff',
                         align: 'center'
                     });
-                    checkAnsText.x = -34;
+                    checkAnsText.x = -31;
                     checkAnsText.y = -13;
                     _this.addChild(checkAnsText);
                     return _this;
