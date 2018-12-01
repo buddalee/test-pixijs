@@ -42,7 +42,6 @@ System.register([], function (exports_1, context_1) {
                         }
                     };
                     $.ajax(firstSettings).done(function (response) {
-                        console.log(response);
                         paintingInfos.push(response.result[0]);
                         window.history.pushState('', '', '?level=1');
                         serials.map(function (serial_no) {
@@ -59,12 +58,9 @@ System.register([], function (exports_1, context_1) {
                         });
                     });
                     $.when(queue[0], queue[1]).done(function (r1, r2, r3) {
-                        console.log(r1);
-                        console.log(r2);
                         paintingInfos.push(r1[0].result[0]);
                         paintingInfos.push(r2[0].result[0]);
                         exports_1("paintingInfos", paintingInfos = paintingInfos.sort(function (pre, next) { return +pre.Serial_No - +next.Serial_No; }));
-                        console.log("all ajax down ");
                     });
                 };
                 Stamps.prototype.isTouchSupported = function () {

@@ -62,18 +62,21 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                     _this.centerPointArr = [{ x: 0, y: 0 }, { x: 0, y: 0 }];
                     _this.angle = 0;
                     _this.userAnsArr = [];
+                    _this.tempDatas = [];
                     _this.onDragStart = function (e) {
                         var eventData = e.data;
                         _this.touchData = {
                             x: Math.floor(eventData.global.x),
                             y: Math.floor(eventData.global.y)
                         };
+                        console.log('isPCMode: ', _this.isPCMode);
                         if (!_this.isPCMode) {
                             var touch = {
                                 id: eventData.identifier,
                                 pos: _this.touchData
                             };
                             _this.touches.push(touch);
+                            _this.tempDatas.push(touch);
                             if (_this.touches.length === 1) {
                                 _this.testCircle1 = new PIXI.Graphics();
                                 if (_this.isDevMode) {
@@ -115,21 +118,20 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                     };
                     _this.onDragEnd = function (e) {
                         console.log('目前有幾隻手指按在螢幕上: ', _this.touches.length);
-                        if (!_this.isPCMode) {
-                            if (_this.touches.length > 4) {
-                                _this.chooseStampType = 2;
+                        var checksum = 0;
+                        if (checksum === 0 && _this.touches.length > 5) {
+                            checksum = _this.touches.length - 5;
+                        }
+                        console.log('checksum: ', checksum);
+                        if ((_this.touches.length - checksum) === 1) {
+                            console.log('this.tempDatas: ', _this.tempDatas);
+                            if (_this.tempDatas.length <= 3) {
+                                _this.chooseStampType = 1;
+                                _this.calcDistance(1);
                             }
                             else {
-                                _this.chooseStampType = 1;
-                            }
-                        }
-                        if (_this.touches.length >= 3) {
-                            _this.calcDistance();
-                            if (!_this.isPCMode) {
-                                if (_this.touches.length > 4) {
-                                }
-                                else {
-                                }
+                                _this.chooseStampType = 2;
+                                _this.calcDistance(2);
                             }
                         }
                         var eventData = e.data;
@@ -145,18 +147,19 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                             _this.drawStamp(_this.touchData, true, _this.chooseStampType);
                         }
                     };
-                    _this.calcDistance = function () {
-                        var dis = _this.touches.map(function (_touch, idx) {
+                    _this.calcDistance = function (type) {
+                        console.log('this.touches: ', _this.touches);
+                        var dis = _this.tempDatas.map(function (_touch, idx) {
                             var anotherIdx;
-                            if (idx === _this.touches.length - 1) {
+                            if (idx === _this.tempDatas.length - 1) {
                                 anotherIdx = 0;
                             }
                             else {
                                 anotherIdx = idx + 1;
                             }
-                            var _a = _this.touches[idx].pos, x = _a.x, y = _a.y;
-                            var _x = _this.touches[anotherIdx].pos.x;
-                            var _y = _this.touches[anotherIdx].pos.y;
+                            var _a = _this.tempDatas[idx].pos, x = _a.x, y = _a.y;
+                            var _x = _this.tempDatas[anotherIdx].pos.x;
+                            var _y = _this.tempDatas[anotherIdx].pos.y;
                             var distance = Math.sqrt(Math.pow(x - _x, 2) + Math.pow(y - _y, 2));
                             return distance;
                         });
@@ -164,24 +167,26 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                         var maxIdx = dis.findIndex(function (_dis) { return _dis === maxDistance; });
                         _this.calcPhotoCenter(maxIdx);
                         _this.calcPhotoAngle(maxIdx);
-                        if (_this.chooseStampType === 1) {
+                        if (type === 1) {
                             _this.drawStamp(_this.centerPointArr[0], true, _this.chooseStampType);
                         }
                         else {
                             _this.drawStamp(_this.centerPointArr[1], true, _this.chooseStampType);
                         }
+                        _this.touches = [];
+                        _this.tempDatas = [];
                     };
                     _this.calcPhotoCenter = function (maxIdx) {
                         var anotherIdx;
-                        if (maxIdx === _this.touches.length - 1) {
+                        if (maxIdx === _this.tempDatas.length - 1) {
                             anotherIdx = 0;
                         }
                         else {
                             anotherIdx = maxIdx + 1;
                         }
-                        var _a = _this.touches[maxIdx].pos, x = _a.x, y = _a.y;
-                        var _x = _this.touches[anotherIdx].pos.x;
-                        var _y = _this.touches[anotherIdx].pos.y;
+                        var _a = _this.tempDatas[maxIdx].pos, x = _a.x, y = _a.y;
+                        var _x = _this.tempDatas[anotherIdx].pos.x;
+                        var _y = _this.tempDatas[anotherIdx].pos.y;
                         _this.removeChild(_this.centerCircle);
                         _this.centerCircle = new PIXI.Graphics();
                         if (_this.isDevMode) {
@@ -206,14 +211,14 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                     _this.calcPhotoAngle = function (maxIdx) {
                         var anotherIdx;
                         if (maxIdx === 0) {
-                            anotherIdx = _this.touches.length - 1;
+                            anotherIdx = _this.tempDatas.length - 1;
                         }
                         else {
                             anotherIdx = maxIdx - 1;
                         }
-                        var _a = _this.touches[anotherIdx].pos, x = _a.x, y = _a.y;
-                        var _x = _this.touches[maxIdx].pos.x;
-                        var _y = _this.touches[maxIdx].pos.y;
+                        var _a = _this.tempDatas[anotherIdx].pos, x = _a.x, y = _a.y;
+                        var _x = _this.tempDatas[maxIdx].pos.x;
+                        var _y = _this.tempDatas[maxIdx].pos.y;
                         var cX = _x - x;
                         var cY = _y - y;
                         var xrad = Math.atan2(cY, cX);
@@ -459,6 +464,7 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                     }
                     if (Main_1.stamps.isTouchSupported()) {
                         _this.isPCMode = false;
+                        document.addEventListener("contextmenu", function (e) { return e.preventDefault(); });
                     }
                     else {
                         _this.isPCMode = true;
@@ -502,7 +508,6 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                 StampGameBoard.prototype.checkAns = function () {
                     var isAnsCorrect;
                     if (!this.isPCMode) {
-                        console.log('this.centerPointArr: ', this.centerPointArr);
                         isAnsCorrect = this.validateAns(this.centerPointArr);
                     }
                     else {
