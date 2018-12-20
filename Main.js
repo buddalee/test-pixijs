@@ -1,6 +1,6 @@
-System.register(["./core/Event", "./core/Loader", "./core/SoundMgr", "./ui/GameScene", "./ui/MainMenuScene", "./ui/PaintingInfoScene", "./core/Stamps", "./ui/IntroductionScene"], function (exports_1, context_1) {
+System.register(["./core/Event", "./core/Loader", "./ui/GameScene", "./ui/MainMenuScene", "./ui/PaintingInfoScene", "./core/Stamps", "./ui/IntroductionScene"], function (exports_1, context_1) {
     "use strict";
-    var EventEmitter, Event_1, Loader_1, SoundMgr_1, GameScene_1, MainMenuScene_1, Event_2, PaintingInfoScene_1, Stamps_1, IntroductionScene_1, eventEmitter, application, canvasWidth, canvasHeight, canvasScale, stamps, Main;
+    var EventEmitter, Event_1, Loader_1, GameScene_1, MainMenuScene_1, Event_2, PaintingInfoScene_1, Stamps_1, IntroductionScene_1, eventEmitter, application, canvasWidth, canvasHeight, canvasScale, stamps, Main;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -10,9 +10,6 @@ System.register(["./core/Event", "./core/Loader", "./core/SoundMgr", "./ui/GameS
             },
             function (Loader_1_1) {
                 Loader_1 = Loader_1_1;
-            },
-            function (SoundMgr_1_1) {
-                SoundMgr_1 = SoundMgr_1_1;
             },
             function (GameScene_1_1) {
                 GameScene_1 = GameScene_1_1;
@@ -39,7 +36,6 @@ System.register(["./core/Event", "./core/Loader", "./core/SoundMgr", "./ui/GameS
                     var gameCanvasContext = jQuery("#gameCanvas")[0];
                     exports_1("application", application = new PIXI.Application(1440, 899, { backgroundColor: 0x000000, view: gameCanvasContext }));
                     exports_1("eventEmitter", eventEmitter = new EventEmitter());
-                    SoundMgr_1.SoundMgr.load();
                     exports_1("stamps", stamps = new Stamps_1.Stamps());
                     console.log('!!!!');
                     eventEmitter.on(Event_1.CoreEvent.AssetsLoadComplete, function () {
@@ -63,7 +59,6 @@ System.register(["./core/Event", "./core/Loader", "./core/SoundMgr", "./ui/GameS
                         });
                         eventEmitter.on(Event_2.GameFlowEvent.NextLevelRequest, function () {
                             application.stage.removeChildren();
-                            console.log('!!!!');
                             var param = location.search;
                             if (param.indexOf('level=2') > -1) {
                                 window.history.pushState('', '', '?level=3');

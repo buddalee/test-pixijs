@@ -36,7 +36,6 @@ System.register(["../core/Loader", "../core/Stamps"], function (exports_1, conte
                     painting.x = 1094;
                     painting.y = 23;
                     _this.addChild(painting);
-                    console.log('paintingInfos ', Stamps_1.paintingInfos);
                     var param = location.search;
                     var levelNumber = 1;
                     if (param.indexOf('level=2') > -1) {

@@ -1,4 +1,4 @@
-System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIcon", "./LinkedLine", "../Main", "../core/Event", "./TimerMask"], function (exports_1, context_1) {
+System.register(["../core/Loader", "../Main", "../core/Event", "./TimerMask"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = function (d, b) {
@@ -13,24 +13,12 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
             d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
         };
     })();
-    var Container, Loader_1, Point, Path_1, SoundMgr_1, GameIcon_1, LinkedLine_1, Main_1, Event_1, TimerMask_1, board, reloadTimes, StampGameBoard;
+    var Container, Loader_1, Point, Main_1, Event_1, TimerMask_1, reloadTimes, StampGameBoard;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
             function (Loader_1_1) {
                 Loader_1 = Loader_1_1;
-            },
-            function (Path_1_1) {
-                Path_1 = Path_1_1;
-            },
-            function (SoundMgr_1_1) {
-                SoundMgr_1 = SoundMgr_1_1;
-            },
-            function (GameIcon_1_1) {
-                GameIcon_1 = GameIcon_1_1;
-            },
-            function (LinkedLine_1_1) {
-                LinkedLine_1 = LinkedLine_1_1;
             },
             function (Main_1_1) {
                 Main_1 = Main_1_1;
@@ -69,7 +57,6 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                             x: Math.floor(eventData.global.x),
                             y: Math.floor(eventData.global.y)
                         };
-                        console.log('isPCMode: ', _this.isPCMode);
                         if (!_this.isPCMode) {
                             var touch = {
                                 id: eventData.identifier,
@@ -122,9 +109,7 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                         if (checksum === 0 && _this.touches.length > 5) {
                             checksum = _this.touches.length - 5;
                         }
-                        console.log('checksum: ', checksum);
                         if ((_this.touches.length - checksum) === 1) {
-                            console.log('this.tempDatas: ', _this.tempDatas);
                             if (_this.tempDatas.length <= 3) {
                                 _this.chooseStampType = 1;
                                 Main_1.eventEmitter.emit(Event_1.GameFlowEvent.chooseStamp1Request);
@@ -150,7 +135,6 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                         }
                     };
                     _this.calcDistance = function (type) {
-                        console.log('this.touches: ', _this.touches);
                         var dis = _this.tempDatas.map(function (_touch, idx) {
                             var anotherIdx;
                             if (idx === _this.tempDatas.length - 1) {
@@ -346,120 +330,6 @@ System.register(["../core/Loader", "../core/Path", "../core/SoundMgr", "./GameIc
                         _this.addChild(lines4);
                         _this.addChild(lines5);
                         _this.addChild(lines6);
-                    };
-                    _this.revertBoard = function () {
-                        var value = _this.valueHistory.pop();
-                        var path = _this.pathHistory.pop();
-                        if (value != null && path != null) {
-                            board.board[path.point1.x][path.point1.y] = value;
-                            board.board[path.point2.x][path.point2.y] = value;
-                            _this.drawBoardIcon();
-                            SoundMgr_1.SoundMgr.play('Back');
-                        }
-                    };
-                    _this.drawBoardIcon = function () {
-                        _this.removeChildren();
-                        for (var i = 0; i < board.board.length; i++) {
-                            for (var j = 0; j < board.board[i].length; j++) {
-                                _this.createIcon(board.board[i][j], i, j);
-                            }
-                        }
-                    };
-                    _this.clearIcon = function (point) {
-                        _this.removeChild(_this.getChildByName('icon_' + point.x + "_" + point.y));
-                        board.clearPoint(point);
-                    };
-                    _this.iconSelected = function (point) {
-                        var icon = _this.getChildByName('icon_' + point.x + "_" + point.y);
-                        icon.select();
-                    };
-                    _this.iconUnSelected = function (point) {
-                        var icon = _this.getChildByName('icon_' + point.x + "_" + point.y);
-                        icon.unSelect();
-                    };
-                    _this.reloadBoard = function () {
-                        exports_1("reloadTimes", --reloadTimes) + 1;
-                        do {
-                            board.rearrangeBoard();
-                        } while (board.getFirstExistPath() == null);
-                        _this.drawBoardIcon();
-                        SoundMgr_1.SoundMgr.play('ReloadBoard');
-                    };
-                    _this.showTips = function () {
-                        _this.tipsPath = board.getFirstExistPath();
-                        var icon1 = _this.getChildByName('icon_' + _this.tipsPath.point1.x + "_" + _this.tipsPath.point1.y);
-                        icon1.select();
-                        var icon2 = _this.getChildByName('icon_' + _this.tipsPath.point2.x + "_" + _this.tipsPath.point2.y);
-                        icon2.select();
-                        SoundMgr_1.SoundMgr.play('Tips');
-                    };
-                    _this.cancelTips = function () {
-                        if (_this.tipsPath == null) {
-                            return;
-                        }
-                        var icon1 = _this.getChildByName('icon_' + _this.tipsPath.point1.x + "_" + _this.tipsPath.point1.y);
-                        if (icon1)
-                            icon1.unSelect();
-                        var icon2 = _this.getChildByName('icon_' + _this.tipsPath.point2.x + "_" + _this.tipsPath.point2.y);
-                        if (icon2)
-                            icon2.unSelect();
-                    };
-                    _this.createIcon = function (id, x, y) {
-                        var icon = new GameIcon_1.GameIcon(id, x, y);
-                        _this.addChild(icon);
-                        var iconClickHandler = function () {
-                            _this.cancelTips();
-                            if (_this.selected) {
-                                var selectCorrect_1 = false;
-                                _this.select2 = new Point(x, y);
-                                _this.iconSelected(_this.select2);
-                                setTimeout(function () {
-                                    if (board.hasSameValue(_this.select1, _this.select2)) {
-                                        if (!(_this.select1.x == x && _this.select1.y == y)) {
-                                            var path = new Path_1.Path(_this.select1, _this.select2, board);
-                                            if (path.canLinkInLine()) {
-                                                _this.pathHistory.push(path);
-                                                _this.valueHistory.push(board.getValue(_this.select1));
-                                                LinkedLine_1.LinkedLine.instance.drawPath(path);
-                                                _this.clearIcon(_this.select1);
-                                                _this.clearIcon(_this.select2);
-                                                Main_1.eventEmitter.emit(Event_1.GameFlowEvent.LinkedLineSuccess);
-                                                selectCorrect_1 = true;
-                                                if (board.gameRoundEnd()) {
-                                                    Main_1.eventEmitter.emit(Event_1.GameFlowEvent.GamePass);
-                                                }
-                                                else if (board.getFirstExistPath() == null) {
-                                                    if (reloadTimes > 0) {
-                                                        _this.reloadBoard();
-                                                        Main_1.eventEmitter.emit(Event_1.GameFlowEvent.BoardNeedReload);
-                                                    }
-                                                    else {
-                                                        Main_1.eventEmitter.emit(Event_1.GameFlowEvent.GameEndWithNoPath);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    if (selectCorrect_1) {
-                                        SoundMgr_1.SoundMgr.play('Sound_select_crrect');
-                                    }
-                                    else {
-                                        SoundMgr_1.SoundMgr.play('Sound_select_error');
-                                        _this.iconUnSelected(_this.select1);
-                                        _this.iconUnSelected(_this.select2);
-                                    }
-                                    _this.selected = false;
-                                }, 0);
-                            }
-                            else {
-                                _this.select1 = new Point(x, y);
-                                _this.iconSelected(_this.select1);
-                                _this.selected = true;
-                                SoundMgr_1.SoundMgr.play('Sound_select_1');
-                            }
-                        };
-                        icon.on("click", iconClickHandler);
-                        icon.on("tap", iconClickHandler);
                     };
                     if (location.search.indexOf('dev') > -1) {
                         _this.isDevMode = true;

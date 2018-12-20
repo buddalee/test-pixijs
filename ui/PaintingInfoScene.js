@@ -47,10 +47,8 @@ System.register(["../core/Loader", "../Main", "../core/Stamps", "./FBBtn", "./Pa
                     handleBackground.x = 1080;
                     handleBackground.y = 0;
                     Main_1.application.stage.addChild(handleBackground);
-                    console.log('paintingInfos ', Stamps_1.paintingInfos);
                     var info = Stamps_1.paintingInfos[levelNumber - 1];
                     var author = info.ArticleMaker;
-                    console.log('author: ', author);
                     var authorText = new PIXI.Text(author, {
                         fontSize: 16,
                         fontFamily: 'PingFangTC',
@@ -70,7 +68,6 @@ System.register(["../core/Loader", "../Main", "../core/Stamps", "./FBBtn", "./Pa
                     authorTitle.y = 146;
                     Main_1.application.stage.addChild(authorTitle);
                     var description = info.ArticleContext.replace(/&nbsp;/g, '').replace(/\r/g, '');
-                    console.log('author: ', author);
                     var descriptionText = new PIXI.Text(description, {
                         fontSize: 16,
                         fontFamily: 'PingFangTC',
